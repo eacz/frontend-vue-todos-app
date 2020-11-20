@@ -17,10 +17,13 @@
         <p class="todo-date">{{ todo.created | formatDate }}</p>
       </div>
       <div class="buttons">
-        <button class="btn btn-warning" @click="updateTodo(todo._id)">
+        <button
+          class="btn btn-warning text-white"
+          @click="updateTodo(todo._id)"
+        >
           Editar
         </button>
-        <button class="btn btn-danger" @click="deleteTodo(todo._id)">
+        <button class="btn btn-danger ml-2" @click="deleteTodo(todo._id)">
           Eliminar
         </button>
       </div>
@@ -81,12 +84,21 @@ export default {
   box-shadow: 5px 5px 15px 3px rgba(0, 0, 0, 0.28);
 }
 
-.todo-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+@media (min-width: 600px) {
+  .todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
 }
+
 .badge {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.buttons {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="todos">
-    <h1>To-dos</h1>
     <Todo
       :todos="todos"
       v-for="todo in todos"

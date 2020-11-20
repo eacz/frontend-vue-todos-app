@@ -24,6 +24,13 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+  }
 }
 .logo {
   width: 100%;

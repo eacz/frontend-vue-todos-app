@@ -2,7 +2,7 @@
   <div class="">
     <h2>{{ editTodo ? "Editar" : "Agregar" }} To-do</h2>
     <p v-if="error" class="alert alert-danger">{{ error }}</p>
-    <form action="">
+    <form id="form-todo">
       <div class="form group">
         <label for="">Todo</label>
         <input id="todo" class="form-control" type="text" v-model="todo.name" />
@@ -20,19 +20,19 @@
       </div>
       <button
         v-if="!editTodo"
-        class="btn btn-primary mt-2"
+        class="btn btn-personalized mt-2"
         @click="agregarTodo"
       >
         Agregar
       </button>
-      <button v-if="editTodo" class="btn btn-primary mt-2" @click="updateTodo">
-        Guardar
-      </button>
       <button
         v-if="editTodo"
-        class="btn btn-primary mt-2"
-        @click="cancelarEdit"
+        class="btn btn-personalized mt-2"
+        @click="updateTodo"
       >
+        Guardar
+      </button>
+      <button v-if="editTodo" class="btn btn-cancel mt-2" @click="cancelarEdit">
         Cancelar
       </button>
     </form>
@@ -80,6 +80,7 @@ export default {
       this.error = null;
     },
     updateTodo: async function(e) {
+      e.preventDefault();
       const todo = await fetch(`${baseURL}/api/todos/${this.todo._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -120,4 +121,23 @@ export default {
 
 <style>
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+.btn-personalized {
+  background-color: #0028ff;
+  color: #f1f3df;
+}
+
+.btn-personalized:hover {
+  background-color: #24009c;
+  color: #f1f3df;
+  transition: all 0.5s ease;
+}
+.btn-cancel {
+  background-color: #f1f3df;
+  border: 1px solid #24009c;
+}
+.btn-cancel:hover {
+  background-color: #24009c;
+  color: #f1f3df;
+  transition: all 0.5s ease;
+}
 </style>
