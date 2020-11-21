@@ -6,11 +6,13 @@
         <h1>To-dos</h1>
         <Filtro :filtrado="filtrado" v-on:changeFilter="changeFilter($event)" />
       </div>
+      <Spinner v-if="!todos" />
       <Todos
         :todos="todosFiltered"
         v-on:updateTodo="updateTodo($event)"
         v-on:editTodo="setEditTodo($event)"
       />
+      
       <Form
         ref="form-todo"
         :todos="todos"
@@ -27,19 +29,21 @@
 import Todos from "./components/Todos";
 import Form from "./components/Form";
 import Header from "./components/Layout/Header";
+import Spinner from './components/Layout/Spinner'
 import Filtro from "./components/Filtro";
+import baseURL from './shared/baseURL'
 export default {
   name: "app",
-  components: { Todos, Form, Header, Filtro },
+  components: { Todos, Form, Header, Filtro, Spinner },
   data() {
     return {
-      todos: [],
+      todos: null,
       todoEdit: null,
       filtrado: "default"
     };
   },
   beforeCreate: async function() {
-    const data = await fetch("http://localhost:4000/api/todos");
+    const data = await fetch(`${baseURL}/api/todos`);
     const todos = await data.json();
 
     this.todos = todos;

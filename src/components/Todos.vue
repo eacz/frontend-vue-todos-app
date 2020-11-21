@@ -1,5 +1,6 @@
 <template>
   <div class="todos">
+    <p v-if="todos.length === 0">Todavia no hay ninguna To-Do, agrega una!</p>
     <Todo
       :todos="todos"
       v-for="todo in todos"
@@ -32,4 +33,7 @@ export default {
 </script>
 
 <style>
+.todos p {
+  font-size: 1.5rem;
+}
 </style>
