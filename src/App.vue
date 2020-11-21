@@ -7,18 +7,18 @@
         <Filtro :filtrado="filtrado" v-on:changeFilter="changeFilter($event)" />
       </div>
       <Todos
-        class="todos"
         :todos="todosFiltered"
         v-on:updateTodo="updateTodo($event)"
         v-on:editTodo="setEditTodo($event)"
       />
       <Form
+        ref="form-todo"
         :todos="todos"
         :editTodo="todoEdit"
         v-on:cancelarEdit="cancelarEdit"
         v-on:todoFinallyUpdated="todoFinallyUpdated($event)"
       />
-      <a href="#form-todo" class="floatButton"><p>+</p></a>
+      <button class="floatButton" @click="focusForm"><p>+</p></button>
     </main>
   </div>
 </template>
@@ -66,6 +66,9 @@ export default {
       if (filter) {
         this.filtrado = filter;
       }
+    },
+    focusForm: function() {
+      this.$refs.form - todo.focus();
     }
   },
   computed: {
@@ -97,10 +100,13 @@ export default {
 
 <style>
 @import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
+
+html {
+  scroll-behavior: smooth;
+}
 body,
 #app {
   background-color: #f1f3df;
-  scroll-behavior: smooth ;
 }
 .container-m {
   max-width: 1200px;
@@ -137,6 +143,7 @@ body,
 }
 
 .floatButton {
+  border: none;
   position: fixed;
   background-color: #10eaf0;
   border-radius: 50px;
@@ -150,12 +157,11 @@ body,
   color: #f1f3df;
 }
 
-.floatButton:hover, .floatButton:active {
+.floatButton:hover,
+.floatButton:active {
   color: #f1f3df;
   text-decoration: none;
   background-color: #0028ff;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
-
-
 </style>

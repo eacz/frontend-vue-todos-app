@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <header class="header">
-      <Logo />
-      <Nav />
-    </header>
-  </div>
+  <header class="header">
+    <Logo />
+    <Nav />
+  </header>
 </template>
 
 <script>
@@ -13,8 +11,9 @@ import Logo from "./Logo";
 export default {
   components: { Nav, Logo },
   data() {
-    return {};
-  }
+    return {
+    };
+  },
 };
 </script>
 

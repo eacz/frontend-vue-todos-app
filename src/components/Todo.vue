@@ -17,59 +17,90 @@
         <p class="todo-date">{{ todo.created | formatDate }}</p>
       </div>
       <div class="buttons">
+          <button
+            class="btn btn-warning text-white"
+            @click="updateTodo(todo._id)"
+          >
+            Editar
+          </button>
         <button
-          class="btn btn-warning text-white"
-          @click="updateTodo(todo._id)"
+          class="btn btn-danger ml-2"
+          @click="todo.done ? deleteTodo(todo._id) : deleteAlert(todo._id)"
         >
-          Editar
-        </button>
-        <button class="btn btn-danger ml-2" @click="deleteTodo(todo._id)">
           Eliminar
         </button>
       </div>
     </div>
     <p class="todo-desc">{{ todo.description }}</p>
+    <Modal
+      v-show="showAlert"
+      v-on:handleAlert="handleAlert($event)"
+      :modal="{
+        title: 'Esta seguro de que desea eliminar el todo?',
+        desc: 'El todo no esta terminado aun, y no podrá revertir esta acción.'
+      }"
+    />
   </div>
 </template>
 
 <script>
+import Modal from "./Layout/Modal";
 import { local as baseURL } from "../shared/baseURL";
 export default {
   name: "todo",
   data() {
-    return {};
+    return {
+      showAlert: false
+    };
   },
+  components: { Modal },
   filters: {
     formatDate: function(value) {
       if (!value) {
         return;
       }
       const date = new Date(value);
-      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      const dateFormat = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      const hoursFormat = `${date.getHours()}:${
+        date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes()
+      }`;
+      return `${dateFormat} - ${hoursFormat}`;
     }
   },
   props: ["todo", "todos"],
   methods: {
-    deleteTodo: async function(todoID) {
-      const deletedTodo = await fetch(`${baseURL}/api/todos/${todoID}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" }
-      });
-      const deletedMsg = await deletedTodo.json();
-      this.$emit(
-        "changeTodo",
-        this.todos.filter(todo => todo._id !== todoID)
-      );
+    deleteAlert: function(todoID) {
+      this.showAlert = true;
     },
-    updateTodo: async function(todoID) {
+    handleAlert: function(confirmDelete) {
+      this.showAlert = false;
+      if (confirmDelete) this.deleteTodo(this.todo._id);
+    },
+    deleteTodo: async function(todoID) {
+      try {
+        const deletedTodo = await fetch(`${baseURL}/api/todos/${todoID}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" }
+        });
+        const deletedMsg = await deletedTodo.json();
+        this.$emit(
+          "changeTodo",
+          this.todos.filter(todo => todo._id !== todoID)
+        );
+      } catch (error) {}
+    },
+    updateTodo: function(todoID) {
+      this.$refs.form-todo.focus()
       this.$emit("editTodo", todoID);
     },
     handleToggle: async function(todoID) {
-      await fetch(`${baseURL}/api/todos/toggle-todo/${todoID}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" }
-      });
-      this.todo.done = !this.todo.done;
+      try {
+        await fetch(`${baseURL}/api/todos/toggle-todo/${todoID}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" }
+        });
+        this.todo.done = !this.todo.done;
+      } catch (error) {}
     }
   }
 };

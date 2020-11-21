@@ -63,40 +63,48 @@ export default {
         this.error = "La descripcion del to-do esta vacio";
         return;
       }
-      const newTodo = await fetch(`${baseURL}/api/todos`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.todo)
-      });
+      try {
+        const newTodo = await fetch(`${baseURL}/api/todos`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(this.todo)
+        });
 
-      const newTodoJ = await newTodo.json();
-      //console.log(newTodoJ);
-      this.todos.push(newTodoJ.newTodo);
+        const newTodoJ = await newTodo.json();
+        //console.log(newTodoJ);
+        this.todos.push(newTodoJ.newTodo);
 
-      this.todo = {
-        name: "",
-        description: ""
-      };
-      this.error = null;
+        this.todo = {
+          name: "",
+          description: ""
+        };
+        this.error = null;
+      } catch (error) {
+        this.error = "Hubo un error con el servidor, intente de nuevo";
+      }
     },
     updateTodo: async function(e) {
       e.preventDefault();
-      const todo = await fetch(`${baseURL}/api/todos/${this.todo._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: this.todo.name,
-          description: this.todo.description
-        })
-      });
-      const todoJ = await todo.json();
+      try {
+        const todo = await fetch(`${baseURL}/api/todos/${this.todo._id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: this.todo.name,
+            description: this.todo.description
+          })
+        });
+        const todoJ = await todo.json();
 
-      this.$emit("todoFinallyUpdated", todoJ.updatedTodo);
+        this.$emit("todoFinallyUpdated", todoJ.updatedTodo);
 
-      this.todo = {
-        name: "",
-        description: ""
-      };
+        this.todo = {
+          name: "",
+          description: ""
+        };
+      } catch (error) {
+        this.error = "Hubo un error con el servidor, intente de nuevo";
+      }
     },
     cancelarEdit: function() {
       this.$emit("cancelarEdit");
@@ -108,12 +116,10 @@ export default {
   },
   watch: {
     editTodo: function() {
-      console.log(this.editTodo);
       if (!this.editTodo) {
         return;
       }
       this.todo = this.editTodo;
-      console.log("hasta aca");
     }
   }
 };

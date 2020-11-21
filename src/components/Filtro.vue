@@ -83,18 +83,18 @@ export default {
 
 .botones-filtros {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   row-gap: 1rem;
-  column-gap: .7rem;
+  column-gap: 0.7rem;
 }
 
 @media (min-width: 600px) {
   .botones-filtros {
-  margin-left: 1rem;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-}
+    margin-left: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
 }
 
 button:focus {
@@ -110,13 +110,15 @@ button:focus {
   margin-left: 0.3rem;
 }
 
-
+.btn-filtro:hover {
+  background-color: #f1f3df;
+  color: #0828ff;
+  transition: all 0.5s ease;
+}
 
 .filtro-activo {
   background-color: #f1f3df;
   color: #0828ff;
-  transition: all .5s ease;
-  border: none;
-
+  transition: all 0.5s ease;
 }
 </style>
