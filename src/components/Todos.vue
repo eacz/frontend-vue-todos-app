@@ -32,6 +32,4 @@ export default {
 </script>
 
 <style>
-.todos {
-}
 </style>

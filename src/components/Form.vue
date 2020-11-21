@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { local as baseURL } from "../shared/baseURL";
+import baseURL from "../shared/baseURL";
 export default {
   data() {
     return {

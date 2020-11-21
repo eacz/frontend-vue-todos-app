@@ -45,7 +45,7 @@
 
 <script>
 import Modal from "./Layout/Modal";
-import { local as baseURL } from "../shared/baseURL";
+import baseURL from "../shared/baseURL";
 export default {
   name: "todo",
   data() {
