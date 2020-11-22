@@ -131,6 +131,7 @@ export default {
   margin-bottom: 1rem;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   overflow: hidden;
 }
 
@@ -140,7 +141,17 @@ export default {
 }
 
 .todo-title p {
-  margin: 0 .5rem 0 0;
+  margin: 0 0.5rem 0 0;
 }
 
+@media (min-width: 600px) {
+  .todo-title p {
+    max-width: 200px;
+  }
+}
+@media (min-width: 1024px) {
+  .todo-title p {
+    max-width: 400px;
+  }
+}
 </style>

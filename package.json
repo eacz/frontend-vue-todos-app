@@ -12,6 +12,8 @@
   "dependencies": {
     "animate.css": "^4.1.1",
     "bootstrap": "^4.5.3",
+    "build": "^0.1.4",
+    "run": "^1.4.0",
     "vue": "^2.5.11"
   },
   "browserslist": [
