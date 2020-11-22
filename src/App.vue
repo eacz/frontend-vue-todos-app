@@ -80,7 +80,7 @@ export default {
           method: "DELETE",
           headers: { "Content-Type": "application/json" }
         });
-        this.todos = []
+        this.todos = [];
       } catch (error) {
         console.log(error);
       }

@@ -2,7 +2,7 @@
   <div class="logo-container">
     <img
       class="logo"
-      src="https://i.ibb.co/3F586yt/logo.png"
+      src="https://i.ibb.co/RDGxjcn/logo.png"
       alt="logo"
     />
     <h2>To-Do App</h2>

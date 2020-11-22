@@ -1,6 +1,8 @@
 <template>
   <div class="todos">
-    <p class="no-todos" v-if="todos? todos.length === 0 : false">Todavia no hay ninguna To-Do, agrega una!</p>
+    <p class="no-todos" v-if="todos ? todos.length === 0 : false">
+      Todavia no hay ninguna To-Do, agrega una!
+    </p>
     <Todo
       :todos="todos"
       v-for="todo in todos"
@@ -25,8 +27,8 @@ export default {
     updateTodo: function(updatedTodos) {
       this.$emit("updateTodo", updatedTodos);
     },
-    editTodo: function(todoID){
-        this.$emit('editTodo', todoID)
+    editTodo: function(todoID) {
+      this.$emit("editTodo", todoID);
     }
   }
 };
