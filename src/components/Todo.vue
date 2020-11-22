@@ -3,7 +3,7 @@
     <div class="todo-header">
       <div class="title">
         <h4 class="todo-title">
-          {{ todo.name }}
+          <p>{{ todo.name }}</p>
           <span
             class="badge "
             v-bind:class="{
@@ -17,12 +17,12 @@
         <p class="todo-date">{{ todo.created | formatDate }}</p>
       </div>
       <div class="buttons">
-          <button
-            class="btn btn-warning text-white"
-            @click="updateTodo(todo._id)"
-          >
-            Editar
-          </button>
+        <button
+          class="btn btn-warning text-white"
+          @click="updateTodo(todo._id)"
+        >
+          Editar
+        </button>
         <button
           class="btn btn-danger ml-2"
           @click="todo.done ? deleteTodo(todo._id) : deleteAlert(todo._id)"
@@ -69,7 +69,7 @@ export default {
   },
   props: ["todo", "todos"],
   methods: {
-    deleteAlert: function(todoID) {
+    deleteAlert: function() {
       this.showAlert = true;
     },
     handleAlert: function(confirmDelete) {
@@ -90,7 +90,7 @@ export default {
       } catch (error) {}
     },
     updateTodo: function(todoID) {
-      this.$refs.form-todo.focus()
+      this.$refs.form - todo.focus();
       this.$emit("editTodo", todoID);
     },
     handleToggle: async function(todoID) {
@@ -130,6 +130,17 @@ export default {
 .buttons {
   margin-bottom: 1rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
 }
+
+.todo-title {
+  display: flex;
+  align-items: center;
+}
+
+.todo-title p {
+  margin: 0 .5rem 0 0;
+}
+
 </style>

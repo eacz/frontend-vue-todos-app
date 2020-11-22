@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header />
+    <Header v-on:deleteAllTodos="deleteAllTodos" />
     <main class="container-m">
       <div class="header-body">
         <h1>To-dos</h1>
@@ -12,7 +12,7 @@
         v-on:updateTodo="updateTodo($event)"
         v-on:editTodo="setEditTodo($event)"
       />
-      
+
       <Form
         ref="form-todo"
         :todos="todos"
@@ -29,9 +29,9 @@
 import Todos from "./components/Todos";
 import Form from "./components/Form";
 import Header from "./components/Layout/Header";
-import Spinner from './components/Layout/Spinner'
+import Spinner from "./components/Layout/Spinner";
 import Filtro from "./components/Filtro";
-import baseURL from './shared/baseURL'
+import baseURL from "./shared/baseURL";
 export default {
   name: "app",
   components: { Todos, Form, Header, Filtro, Spinner },
@@ -73,6 +73,17 @@ export default {
     },
     focusForm: function() {
       this.$refs.form - todo.focus();
+    },
+    deleteAllTodos: async function() {
+      try {
+        await fetch(`${baseURL}/api/todos`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" }
+        });
+        this.todos = []
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   computed: {
@@ -125,6 +136,9 @@ body,
     column-gap: 2rem;
   }
   .todos {
+    grid-column: 1/3;
+  }
+  .spinner {
     grid-column: 1/3;
   }
   .header-body {
