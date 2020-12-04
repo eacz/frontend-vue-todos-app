@@ -10,3 +10,7 @@ O para correr la aplicación de forma local:
 -Usar el comando "npm install" para instalar las dependencias necesarias
 
 -Finalmente, usar el comando "npm run dev" para correr el proyecto de forma local, por defecto en el puerto 8080
+
+
+Backend:
+https://github.com/eacz/backend-todos-app
